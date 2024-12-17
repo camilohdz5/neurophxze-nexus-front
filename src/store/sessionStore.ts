@@ -1,5 +1,9 @@
+// Vendors
 import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
+
+// Configs 
+import { config } from "../config";
 
 // types
 interface User {
@@ -38,7 +42,7 @@ export const useSessionStore = create<SessionState>()(
 
         // Set Session Token on local storage
         localStorage.setItem(
-          import.meta.env.VITE_NEUROPHXZE_NEXUS_ACCESS_TOKEN,
+          config.accessToken, // Use the config variable
           response?.token
         );
 
@@ -54,7 +58,7 @@ export const useSessionStore = create<SessionState>()(
       },
     }),
     {
-      name: "session-storage",
+      name: config.userStorePersistor,
       getStorage: () => localStorage,
     } as PersistOptions<SessionState>
   )

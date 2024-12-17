@@ -1,6 +1,9 @@
 // Vendors
 import axios from "axios";
 
+// Configs
+import { config as Configs } from "../config";
+
 // Axios Clients
 const publicClient: Axios.AxiosInstance = axios.create({
   baseURL: "https://api.tu-dominio.com", // Cambia esto a tu URL base
@@ -21,10 +24,7 @@ const privateClient: Axios.AxiosInstance = axios.create({
 // Interceptors (Private Client)
 privateClient.interceptors.request.use(
   (config) => {
-
-    const token = localStorage.getItem(
-      import.meta.env.VITE_NEUROPHXZE_NEXUS_ACCESS_TOKEN
-    );
+    const token = localStorage.getItem(Configs.accessToken);
     if (token) {
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
